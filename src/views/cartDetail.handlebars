@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>🛒 Detalle del Carrito</h1>
+
+  {{#if cart.products.length}}
+    <ul id="productList">
+      {{#each cart.products}}
+        <li>
+          <div class="productInfo">
+            <strong>{{this.product.title}}</strong><br />
+            Precio: ${{this.product.price}}<br />
+            Categoría: {{this.product.category}}<br />
+            Stock: {{this.product.stock}}<br />
+            Cantidad en carrito: {{this.quantity}}
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>Este carrito está vacío.</p>
+  {{/if}}
+</div>
+
+<link rel="stylesheet" href="/css/styles.css" />

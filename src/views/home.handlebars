@@ -1,0 +1,54 @@
+<div class="container">
+  <h1> HOME</h1>
+  <h3>📦 Lista de productos</h3>
+
+      <a href="/carts/{{cartId}}"><button class="details">🛒 Ver Carrito</button></a>
+  <div class="container">
+    <strong>Ordenar por precio:</strong>
+    <a href="/?sort=asc">Ascendente</a> |
+    <a href="/?sort=desc">Descendente</a>
+  </div>
+
+  <div class="container">
+    <strong>Categoría:</strong>
+    <a href="/?category=Laptops">Laptops</a> |
+    <a href="/?category=Periféricos">Periféricos</a> |
+    <a href="/?category=Monitores">Monitores</a> |
+    <a href="/?category=Componentes">Componentes</a> |
+    <a href="/">Todas</a>
+  </div>
+
+  
+
+  <ul id="productList">
+    {{#each products}}
+      <li>
+        <div class="productInfo">
+
+        <strong>{{this.title}}</strong>
+        <p><strong>${{this.price}}</strong></p>
+    <p><strong>Categoría:</strong> {{this.category}}</p>
+
+      <a href="/products/{{this._id}}"><button class="details">Ver detalles</button></a>
+
+      <button class="addToCart" data-productid="{{this._id}}" data-cartid="{{../cartId}}">Agregar al carrito</button>
+
+
+   
+      </div>
+    </li>
+  {{/each}}
+</ul>
+
+
+
+</div>
+
+  {{#each links}}
+    <a href="{{this.link}}">{{this.text}}</a>
+  {{/each}}
+
+
+<script src="/home.js"></script>
+
+<link rel="stylesheet" href="/css/styles.css" />

@@ -1,0 +1,103 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #dcd7d7;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+}
+
+h1, h3 {
+  text-align: center;
+  color: #333333;
+  margin-bottom: 24px;
+}
+
+form {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.formSection {
+  margin-bottom: 30px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.addToCart {
+  background-color: #ff7f50; 
+  color: white;
+}
+
+button.addToCart:hover {
+  background-color: #ff6333;
+}
+
+button.details {
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #aaa;
+}
+
+button.details:hover {
+  background-color: #f0f0f0;
+}
+
+ul#productList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+ul#productList li {
+  background: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.productListSection ul li {
+  background-color: #f4f4f4;
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.productInfo {
+  margin-bottom: 12px;
+}
+
+.productButtons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}

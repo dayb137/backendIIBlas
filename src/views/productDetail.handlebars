@@ -1,0 +1,24 @@
+<div class="container">
+
+<h1>📦 Detalle del Producto</h1>
+
+
+<div class="productInfo">
+
+<h2>{{product.title}}</h2>
+<p><strong>Precio:</strong> ${{product.price}}</p>
+<p><strong>Stock:</strong> {{product.stock}}</p>
+<p><strong>Categoría:</strong> {{product.category}}</p>
+<p>{{product.description}}</p>
+
+<div class="productButtons">
+<a href="/carts/{{cartId}}"><button class="details">🛒 Ver Carrito</button></a>
+
+<button id="addToCart" data-productid="{{product._id}}" data-cartid="{{cartId}}">Agregar al carrito</button>
+
+  </div>
+ </div>
+</div>
+
+<script src="/productDetail.js"></script>
+<link rel="stylesheet" href="/css/styles.css" />

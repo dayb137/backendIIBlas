@@ -1,0 +1,61 @@
+
+
+
+ <div class="container">
+  <h1>🛍️ Productos en Tiempo Real</h1>
+
+  
+  <div class="formSection">
+    <h3>➕ Agregar Producto</h3>
+    <form id="addForm">
+      <input type="text" name="title" placeholder="Nombre" required />
+      <input type="number" name="price" placeholder="Precio" required />
+      <input type="number" name="stock" placeholder="Stock" required />
+
+      <select name="category" required>
+        <option value="">Seleccionar categoría</option>
+        <option value="Laptops">Laptops</option>
+        <option value="Componentes">Componentes</option>
+        <option value="Periféricos">Periféricos</option>
+        <option value="Monitores">Monitores</option>
+        <option value="Almacenamiento">Almacenamiento</option>
+        <option value="Audio">Audio</option>
+        <option value="Redes">Redes</option>
+        <option value="Accesorios">Accesorios</option>
+      </select>
+
+      <textarea name="description" placeholder="Descripción del producto" rows="3"></textarea>
+
+      <button type="submit" class="addToCart">Agregar</button>
+    </form>
+  </div>
+
+ 
+  <div class="formSection">
+    <h3>🗑️ Eliminar Producto</h3>
+    <form id="deleteForm">
+      <input type="text" name="id" id="id" placeholder="ID del producto a eliminar" required />
+      <button type="submit" class="details">Eliminar</button>
+    </form>
+  </div>
+
+  
+  <div class="productListSection">
+    <h3>📋 Lista de Productos</h3>
+    <ul id="productList">
+      {{#each products}}
+        <li>
+          <div class="productInfo">
+            <strong>{{this.title}}</strong> — ${{this.price}}<br />
+            <small>ID: {{this._id}}</small>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/index.js"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+
