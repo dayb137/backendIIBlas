@@ -9,10 +9,17 @@ import connectMongodb from "./config/db.js";
 import dotenv from "dotenv";
 import Product from "./models/product.model.js";
 import __dirname from "../dirname.js";
+import passport from "passport";
+import cookieParser from "cookie-parser";
+import { iniciarPassport } from "./config/passport.config.js";
+import sessionsRouter from "./routes/sessions.router.js";
+
 
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT;
+
 const server = http.createServer(app);
 const io = new Server(server);
 
@@ -22,16 +29,18 @@ app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/src/views")
 
-const PORT = process.env.PORT;
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({extended:true}));
 
-
+app.use(passport.initialize());
+iniciarPassport();
 
 app.use("/api/products", productRouter)
 app.use("/api/carts", cartRouter)
 app.use("/", viewsRouter);
+app.use("/api/sessions", sessionsRouter);
 
 
 
