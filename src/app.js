@@ -34,8 +34,8 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({extended:true}));
 
-app.use(passport.initialize());
 iniciarPassport();
+app.use(passport.initialize());
 
 app.use("/api/products", productRouter)
 app.use("/api/carts", cartRouter)
