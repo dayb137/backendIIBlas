@@ -25,6 +25,7 @@ app.set("views", __dirname + "/src/views")
 const PORT = process.env.PORT;
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
+app.use(express.urlencoded({extended:true}));
 
 
 
