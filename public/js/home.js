@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             try{
                 const res = await fetch(`/api/carts/${cartId}/product/${productId}`, {
                     method: "POST",
-                    headers: {"content-Type": "application/json"},
+                    headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({quantity: 1}),
                 });
 

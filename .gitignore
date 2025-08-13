@@ -1,2 +1,5 @@
 /node_modules
 .env
+crearAdmin.js
+probarLogin.js
+cambiarPassword.js

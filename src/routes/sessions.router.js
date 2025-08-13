@@ -56,6 +56,8 @@ router.get("/logout", (req, res) => {
     res.status(200).json({ message:"Logout exitoso", pyload: "Sesión cerrada correctamente "})
 });
 
+
+
 router.get("/users", authenticateUser, async (req, res) =>{
     try {
         const users = await User.find().select("-password").lean();
@@ -65,5 +67,39 @@ router.get("/users", authenticateUser, async (req, res) =>{
         
     }
 });
+
+router.put("/users/:uid", authenticateUser, async (req, res) =>{
+    try {
+        const {uid} = req.params;
+        const updateData = req.body;
+
+        if(updateData.password) {
+            const bcrypt = await import("bcrypt");
+            updateData.password = bcrypt.hashSync(updateData.password, 10)
+        }
+
+        const updateUser = await User.findByIdAndUpdate(uid, updateData, { new : true }).lean();
+        if (!updateUser) return res.status(404).json({message: "Usuario no encontrado"});
+
+        res.status(200).json({message: "Usuario actualizado", user: updateUser});
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+router.delete("/users/:uid", authenticateUser, async (req, res) =>{
+    try {
+        const {uid} = req.params;
+        const deletedUser = await User.findByIdAndDelete(uid).lean();
+
+        if(!deletedUser) return res.status(404).json({ message: " Usuario no encontrado"});
+
+        res.status(200).json({ message: "Usuario eliminado", user: deletedUser});
+    } catch (error) {
+        res.status(500).json({ error: error.message});
+    }
+});
+
+
 
 export default router;
