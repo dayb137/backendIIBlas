@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Frontend Usuarios / Admin</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; width: 300px; }
+        label { display: block; margin-top: 10px; }
+        button { margin-top: 10px; }
+        #output { white-space: pre-wrap; background: #f0f0f0; padding: 10px; border: 1px solid #ccc; max-width: 600px; }
+    </style>
+</head>
+<body>
+    <h1>Registro</h1>
+    <form id="registerForm">
+        <label>Nombre: <input name="first_name" required></label>
+        <label>Apellido: <input name="last_name"></label>
+        <label>Email: <input type="email" name="email" required></label>
+        <label>Edad: <input type="number" name="age"></label>
+        <label>Password: <input type="password" name="password" required></label>
+        <button type="submit">Registrar</button>
+    </form>
+
+    <h1>Login</h1>
+    <form id="loginForm">
+        <label>Email: <input type="email" name="email" required></label>
+        <label>Password: <input type="password" name="password" required></label>
+        <button type="submit">Login</button> <button id="logoutBtn">Cerrar sesión</button>
+
+    </form>
+
+    <h1>Admin</h1>
+    <button onclick="getUsers()">Ver todos los usuarios</button>
+
+    <h3>Actualizar Usuario</h3>
+    <label>ID del usuario: <input id="updateId"></label>
+    <label>Nuevo email: <input id="updateEmail"></label>
+    <button onclick="updateUser(document.getElementById('updateId').value, {email: document.getElementById('updateEmail').value})">
+        Actualizar
+    </button>
+
+    <h3>Eliminar Usuario</h3>
+    <label>ID del usuario: <input id="deleteId"></label>
+    <button onclick="deleteUser(document.getElementById('deleteId').value)">Eliminar</button>
+
+    <h2>Resultados:</h2>
+    <div id="output"></div>
+
+    <script src="/js/sessions.js"></script>
+</body>
+</html>

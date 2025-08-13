@@ -1,5 +1,6 @@
 const registerForm = document.getElementById("registerForm");
 const loginForm = document.getElementById("loginForm");
+const logoutBtn = document.getElementById("logoutBtn");
 const output = document.getElementById("output");
 
 const mostrarResultados = (data) =>{
@@ -32,7 +33,7 @@ loginForm.addEventListener("submit", async (e) => {
     const formData = Object.fromEntries(new FormData(loginForm).entries());
     try {
         const res = await fetch(`/api/sessions/login`, {
-            metod:"POST",
+            method:"POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(formData)
         });
@@ -49,13 +50,33 @@ loginForm.addEventListener("submit", async (e) => {
         
     };
 });
+
+logoutBtn.addEventListener("click", async ()=>{
+    try {
+        const res = await fetch("/api/sessions/logout", {
+            method:"GET"
+        });
+        const data = await res.json();
+        mostrarResultados(data);
+
+        localStorage.removeItem("token");
+
+    } catch (error) {
+        mostrarResultados({ error: error.message});
+    }
+})
+
+
+
 const getUsers = async () => {
     try {
         const res = await fetch("/api/sessions/users", {
             headers: { "Authorization": `Bearer ${getToken()}` }
         });
-        mostrarResultado(await res.json());
-    } catch (error) { mostrarResultado({ error: error.message }); }
+
+        mostrarResultados(await res.json());
+
+    } catch (error) { mostrarResultados({ error: error.message }); }
 };
 
 const updateUser = async (userId, updateData) => {
@@ -68,8 +89,8 @@ const updateUser = async (userId, updateData) => {
             },
             body: JSON.stringify(updateData)
         });
-        mostrarResultado(await res.json());
-    } catch (error) { mostrarResultado({ error: error.message }); }
+        mostrarResultados(await res.json());
+    } catch (error) { mostrarResultados({ error: error.message }); }
 };
 
 const deleteUser = async (userId) => {
@@ -78,6 +99,6 @@ const deleteUser = async (userId) => {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${getToken()}` }
         });
-        mostrarResultado(await res.json());
-    } catch (error) { mostrarResultado({ error: error.message }); }
+        mostrarResultados(await res.json());
+    } catch (error) { mostrarResultados({ error: error.message }); }
 };
