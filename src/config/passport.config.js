@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as JWTStrategy, ExtractJwt } from"passport-jwt";
 import { Strategy as localStrategy} from "passport-local";
-import User from "../models/user.model.js";
+import User from "../dao/models/user.model.js";
 import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
 

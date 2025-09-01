@@ -7,7 +7,7 @@ import { Server } from "socket.io";
 import http from "http";
 import connectMongodb from "./config/db.js";
 import dotenv from "dotenv";
-import Product from "./models/product.model.js";
+import Product from "./dao/models/product.model.js";
 import __dirname from "../dirname.js";
 import passport from "passport";
 import cookieParser from "cookie-parser";
