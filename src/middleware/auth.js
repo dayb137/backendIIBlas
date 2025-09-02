@@ -9,15 +9,18 @@ export const authenticateUser = (req, res, next)=>{
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        if(decoded.role !== "admin"){
-            return res.status(403).json({message:" Acceso denegado: Se requiere rol de admin" })
-        }
-
         req.user = decoded;
-
         next(); 
     } catch (error) {
         return res.status(401).json({message: "token invalido o expirado"});
     }
 };
+
+export const authorizeRole = (roles) => {
+    return (req, res, next) =>{
+        if (!roles.includes(req.user.role)){
+            return res.status(403).json({ message: "Acceso denegado: permisos isnuficientes!.."});
+        }
+        next();
+    }
+}

@@ -1,25 +1,40 @@
-import User from "../dao/models/user.model.js";
-
+import UserDAO from "../dao/user.dao.js";
 class UserRepository {
-    async getAll(){
-      return await User.find().select("-password").lean();    
-    }
+  async getByEmail(email) {
+    return await UserDAO.findOne({ email });
+  }
 
-    async getById(id){
-        return await User.findById(id).lean();
-    }
+  async createUser(userData) {
+    return await UserDAO.create(userData);
+  }
 
-    async create(userData){
-        return await User.create(userData);
-    }
+  async getById(id) {
+    return await UserDAO.findById(id);
+  }
 
-    async update(id, data){
-        return await User.findByIdAndUpdate(id, data, { new: true}).lean();
-    }
+  async getAll() {
+    return await UserDAO.find();
+  }
 
-    async delete(id){
-        return await User.findByIdAndDelete(id).lean();
-    }
+  async update(id, updateData) {
+    return await UserDAO.findByIdAndUpdate(id, updateData, { new: true });
+  }
+
+  async delete(id) {
+    return await UserDAO.findByIdAndDelete(id);
+  }
+
+  async getActiveUsers(){
+    const users = await UserDAO.getAll();
+    return users.filter(u => u.isActive);
+  }
+
+  async getAdmins(){
+    const users = await UserDAO.getAll();
+    return users.filter(u => u.role === "admin");
+  }
 }
+
+
 
 export default new UserRepository();
