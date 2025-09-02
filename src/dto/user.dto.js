@@ -1,9 +1,10 @@
-export class UsersDTO{
-    constructor(usuario){
-        this.firstName=usuario.nombre
-        this.lastName=usuario.apellido
-        this.email=usuario.correo
-        this.username=usuario.correo.split("@")[0]
+export class UserDTO{
+    constructor(user){
+        this.id = user._id;
+        this.firstName=user.name
+        this.lastName=user.lastName
+        this.email=user.email
+        this.username=user.email.split("@")[0]
         this.role="user"
     }
 }

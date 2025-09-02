@@ -1,6 +1,4 @@
-import { model } from "mongoose"
 import UserModel from"../dao/models/user.model.js"
-import User from "../dao/models/user.model.js";
 
 class UserDAO{
     constructor(model){
@@ -16,7 +14,7 @@ class UserDAO{
     }
 
     async getById(id){
-        return await this.model.findById();
+        return await this.model.findById(id);
     }
 
     async getAll() {
