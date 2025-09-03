@@ -1,9 +1,8 @@
-import { paginate } from "mongoose-paginate-v2";
-import Product from "../dao/models/product.model.js";
+import Product from "./models/product.model.js";
 
 class ProductDAO {
     async getAll(filter = {}, options ={}){
-        return await Product,paginate(filter, options);
+        return await Product.paginate(filter, options);
     }
 
     async getById(id){
@@ -15,7 +14,7 @@ class ProductDAO {
     }
 
     async update(id, updateData){
-        return await Product.findByIdAndUpdate(id, updateData);
+        return await Product.findByIdAndUpdate(id, updateData, {new: true});
     }
 
     async delete(id) {

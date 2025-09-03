@@ -5,10 +5,10 @@ class ProductController {
     async getProducts(req, res){
         try {
             const {page, limit, sort, query } = req.query;
-            const products = await productService.getProducts({ page, limit, sort, query});
+            const result = await productService.getProducts({ page, limit, sort, query});
             res.json({
                 ...result,
-                products: result.product.map( p => new ProductDTO(p))
+                products: result.products.map( p => new ProductDTO(p))
             });
         } catch (error) {
             res.status(500).json({ error: error.message});

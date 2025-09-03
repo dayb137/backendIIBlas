@@ -32,7 +32,7 @@ class ProductService {
     }
 
     async createProduct(data) {
-        if (!data.title || !data.price || !data.code) {
+        if (!data.title || !data.price ) {
             throw new Error("Faltan campos obligatorios");
         }
 

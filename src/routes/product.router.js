@@ -1,16 +1,16 @@
 import express from "express";
 import productController from "../controllers/product.controller.js";
-import { authorizeRole} from"../middleware/auth.js";
+import { authenticateUser, authorizeRole} from"../middleware/auth.js";
 
 
 const productsRouter = express.Router()
 
-productsRouter.get("/",productController.getProducts);
-productsRouter.get("/:pid",productController.getProductById);
+productsRouter.get("/",authenticateUser, productController.getProducts);
+productsRouter.get("/:pid",authenticateUser, productController.getProductById);
  
-productsRouter.post("/", authorizeRole("admin"),productController.createProduct);
-productsRouter.put("/:pid", authorizeRole("admin"),productController.updateProduct);
-productsRouter.delete("/:pid", authorizeRole("admin"),productController.deleteProduct);
+productsRouter.post("/",authenticateUser, authorizeRole("admin"),productController.createProduct);
+productsRouter.put("/:pid",authenticateUser, authorizeRole("admin"),productController.updateProduct);
+productsRouter.delete("/:pid",authenticateUser, authorizeRole("admin"),productController.deleteProduct);
 
 
 
