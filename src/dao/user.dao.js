@@ -20,6 +20,13 @@ class UserDAO{
     async getAll() {
         return await this.model.find();
     }
+    async getByToken(token) {
+        
+        return await this.model.findOne({
+            resetToken: token,
+            resetTokenExpires: { $gt: Date.now() },
+         });
+    }
 
     async update(id, updateData){
         return await this.model.findByIdAndUpdate(id, updateData, { new:true});

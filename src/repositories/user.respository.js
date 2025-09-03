@@ -4,6 +4,10 @@ class UserRepository {
     return await UserDAO.getByEmail(email);
   }
 
+  async getByToken(token){
+    return await UserDAO.getByToken(token);
+  }
+
   async createUser(userData) {
     return await UserDAO.createUser(userData);
   }
@@ -22,6 +26,9 @@ class UserRepository {
 
   async delete(id) {
     return await UserDAO.delete(id);
+  }
+  async save(user) {
+    return await UserDAO.update(user._id, user);
   }
 
   async getActiveUsers(){

@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { authenticateUser, authorizeRole } from "../middleware/auth.js";
 import userController from "../controllers/user.controller.js";
-import passwordController from "../controllers/password.controller.js"
+import * as passwordController from "../controllers/password.controller.js"
 const router = Router();
 
 router.post("/register", userController.register);
