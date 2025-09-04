@@ -9,8 +9,8 @@ cartRouter.post("/", authenticateUser, authorizeRole("user", "admin"), cartContr
 cartRouter.get("/", authenticateUser, authorizeRole("user", "admin"), cartController.getCart); 
 cartRouter.get("/:cid", authenticateUser, authorizeRole("user", "admin"), cartController.getCartById);
 
-cartRouter.post("/:cid/product/:pid", authenticateUser, authorizeRole("user", "admin"), cartController.addProduct);
-cartRouter.put("/:cid/product/:pid", authenticateUser, authorizeRole("user", "admin"), cartController.updateProduct);
+cartRouter.post("/product/:pid", authenticateUser, authorizeRole("user", "admin"), cartController.addProduct);
+cartRouter.put("/product/:pid", authenticateUser, authorizeRole("user", "admin"), cartController.updateProduct);
 cartRouter.delete("/:cid/products/:pid", authenticateUser, authorizeRole("user", "admin"), cartController.deleteProduct);
 cartRouter.delete("/:cid", authenticateUser, authorizeRole("user", "admin"), cartController.clearCart);
 

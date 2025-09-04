@@ -32,7 +32,11 @@ class CartService {
         const product = await productRepository.getById(productId);
         if (!product || product.stock < quantity) throw new Error("Producto no disponible");
 
-        const index = cart.products.findIndex(p => p.product.toString() === productId);
+        const index = cart.products.findIndex(p => {
+            const prodId = p.product._id ? p.product._id.toString() : p.product.toString();
+            return prodId === productId;
+        });
+
         if (index >= 0) {
             cart.products[index].quantity += quantity;
         } else {
@@ -48,12 +52,16 @@ class CartService {
 
         const cart = await cartRepository.getByUserId(userId);
         if (!cart) throw new Error("Carrito no encontrado");
+        
+        const index = cart.products.findIndex(p => {
+            const prodId = p.product._id ? p.product._id.toString() : p.product.toString();
+            return prodId === productId;
+        });
 
-        const index = cart.products.findIndex(p => p.product.toString() === productId);
         if (index < 0) throw new Error("Producto no encontrado en el carrito");
 
         cart.products[index].quantity = quantity;
-
+        
         await cartRepository.update(cart._id, { products: cart.products });
         return await this.getCartById(cart._id);
     }
@@ -64,7 +72,11 @@ class CartService {
         const cart = await cartRepository.getByUserId(userId);
         if (!cart) throw new Error("Carrito no encontrado");
 
-        cart.products = cart.products.filter(p => p.product.toString() !== productId);
+        cart.products = cart.products.filter(p => {
+            const prodId = p.product._id ? p.product._id.toString() : p.product.toString();
+            return prodId !== productId;
+            
+        });
 
         await cartRepository.update(cart._id, { products: cart.products });
         return await this.getCartById(cart._id);
