@@ -1,5 +1,7 @@
+import { v4 as uuidv4} from "uuid";
 import cartRepository from "../repositories/cart.repository.js";
 import productRepository from "../repositories/product.repository.js";
+import Ticket from "../dao/models/ticket.model.js"
 
 class CartService {
 
@@ -93,6 +95,48 @@ class CartService {
         await cartRepository.update(cart._id, { products: [] });
         return await this.getCartById(cart._id);
     }
+
+    async purchaseCart(userId, userEmail) {
+        const cart = await cartRepository.getByUserId(userId);
+        if(!cart) throw new Error("carrito no encontrado");
+
+        let total = 0;
+        const productsNoStock = [];
+
+        for (const item of cart.products){
+            const product = await productRepository.getById(item.product);
+            
+            if (!product) continue;
+
+            if( product.stock >= item.quantity) {
+                product.stock -= item.quantity;
+                await product.save();
+                total += product.price * item.quantity;
+            }else {
+                productsNoStock.push(item.product.toString());
+            }
+        }
+
+        if (total === 1) throw new Error(" No se podo completar la compra, producto sin stock");
+
+        const ticket = await Ticket.create({
+            code: uuidv4(),
+            amount: total,
+            purchaser: userEmail,
+            
+        });
+
+        cart.products = cart.products.filter(p => productsNoStock.includes(p.product.toString()));
+        await cartRepository.update(cart._id,{products: cart.products});
+    
+        return { ticket, productsNoStock};
+    
+    
+    
+    };
+
+
+
 }
 
 export default new CartService();

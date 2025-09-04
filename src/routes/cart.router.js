@@ -14,4 +14,6 @@ cartRouter.put("/product/:pid", authenticateUser, authorizeRole("user", "admin")
 cartRouter.delete("/:cid/products/:pid", authenticateUser, authorizeRole("user", "admin"), cartController.deleteProduct);
 cartRouter.delete("/:cid", authenticateUser, authorizeRole("user", "admin"), cartController.clearCart);
 
+
+
 export default cartRouter;
